@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Galerie Impressionniste — Biohacking</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --navy:#1A237E;--gold:#FFD600;--slate:#F4F6F7;--white:#fff;
+    --text:#2C3E50;--accent:#E74C3C;
+  }
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--slate);color:var(--text);padding:2rem 1rem}
+  .container{max-width:1000px;margin:0 auto}
+  
+  header{text-align:center;margin-bottom:3rem}
+  h1{font-size:2.5rem;color:var(--navy);margin-bottom:.5rem}
+  p.subtitle{font-size:1.1rem;color:var(--text);opacity:.8}
+
+  .gallery{display:grid;grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));gap:1.5rem}
+  
+  .card{background:var(--white);border-radius:16px;padding:1.5rem;text-decoration:none;color:inherit;transition:transform .2s, box-shadow .2s;border:1px solid #E2E8F0;display:flex;flex-direction:column;gap:1rem}
+  .card:hover{transform:translateY(-5px);box-shadow:0 10px 20px rgba(0,0,0,0.05);border-color:var(--gold)}
+  
+  .painter-av{width:50px;height:50px;border-radius:50%;background:var(--navy);color:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.2rem}
+  .painter-name{font-size:1.3rem;font-weight:700;color:var(--navy)}
+  .painter-theme{font-size:.9rem;font-weight:600;text-transform:uppercase;color:var(--accent);letter-spacing:1px}
+  .painter-desc{font-size:.95rem;line-height:1.5;color:var(--text);opacity:.8}
+  
+  .btn{margin-top:auto;padding:.6rem 1rem;background:var(--navy);color:var(--white);text-align:center;border-radius:8px;font-weight:600;font-size:.9rem}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>Galerie Impressionniste</h1>
+    <p class="subtitle">Choisissez votre compagnon de biohacking pour un diagnostic personnalisé.</p>
+  </header>
+
+  <div class="gallery">
+    <!-- Renoir -->
+    <a href="Renoir.html" class="card">
+      <div class="painter-av">R</div>
+      <div>
+        <div class="painter-name">Auguste Renoir</div>
+        <div class="painter-theme">Capital Physique</div>
+      </div>
+      <p class="painter-desc">Cultivez la joie de vivre et la chaleur sociale comme piliers de votre santé.</p>
+      <div class="btn">Consulter</div>
+    </a>
+
+    <!-- Monet -->
+    <a href="Monet.html" class="card">
+      <div class="painter-av">M</div>
+      <div>
+        <div class="painter-name">Claude Monet</div>
+        <div class="painter-theme">Lumière & Rythmes</div>
+      </div>
+      <p class="painter-desc">Harmonisez votre horloge biologique avec les variations de la lumière naturelle.</p>
+      <div class="btn">Consulter</div>
+    </a>
+
+    <!-- Degas -->
+    <a href="Degas.html" class="card">
+      <div class="painter-av">D</div>
+      <div>
+        <div class="painter-name">Edgar Degas</div>
+        <div class="painter-theme">Mouvement & Posture</div>
+      </div>
+      <p class="painter-desc">Retrouvez la grâce et la fluidité du corps selon les préceptes de la danse.</p>
+      <div class="btn">Consulter</div>
+    </a>
+
+    <!-- Pissarro -->
+    <a href="Pissarro.html" class="card">
+      <div class="painter-av">P</div>
+      <div>
+        <div class="painter-name">Camille Pissarro</div>
+        <div class="painter-theme">Neuroplasticité</div>
+      </div>
+      <p class="painter-desc">Stimulez votre cerveau par la lecture papier et l'écriture manuscrite.</p>
+      <div class="btn">Consulter</div>
+    </a>
+
+    <!-- Van Gogh -->
+    <a href="VanGogh.html" class="card">
+      <div class="painter-av">V</div>
+      <div>
+        <div class="painter-name">Vincent Van Gogh</div>
+        <div class="painter-theme">Vibration Énergétique</div>
+      </div>
+      <p class="painter-desc">Faites vibrer votre intensité vitale et canalisez votre flamme intérieure.</p>
+      <div class="btn">Consulter</div>
+    </a>
+
+    <!-- Cézanne -->
+    <a href="Cezanne.html" class="card">
+      <div class="painter-av">C</div>
+      <div>
+        <div class="painter-name">Paul Cézanne</div>
+        <div class="painter-theme">Structure & Rigueur</div>
+      </div>
+      <p class="painter-desc">Bâtissez une architecture de vie solide basée sur la régularité et la précision.</p>
+      <div class="btn">Consulter</div>
+    </a>
+
+    <!-- Cassatt -->
+    <a href="Cassatt.html" class="card">
+      <div class="painter-av">C</div>
+      <div>
+        <div class="painter-name">Mary Cassatt</div>
+        <div class="painter-theme">Bienveillance & Intimité</div>
+      </div>
+      <p class="painter-desc">Nourrissez vos liens familiaux et créez un environnement domestique serein.</p>
+      <div class="btn">Consulter</div>
+    </a>
+
+    <!-- Morisot -->
+    <a href="Morisot.html" class="card">
+      <div class="painter-av">B</div>
+      <div>
+        <div class="painter-name">Berthe Morisot</div>
+        <div class="painter-theme">Légèreté & Souffle</div>
+      </div>
+      <p class="painter-desc">Retrouvez votre espace mental et l'amplitude de votre souffle vital.</p>
+      <div class="btn">Consulter</div>
+    </a>
+
+    <!-- Sisley -->
+    <a href="Sisley.html" class="card">
+      <div class="painter-av">S</div>
+      <div>
+        <div class="painter-name">Alfred Sisley</div>
+        <div class="painter-theme">Stabilité & Paysage</div>
+      </div>
+      <p class="painter-desc">Ancrez votre santé dans la stabilité de votre environnement naturel.</p>
+      <div class="btn">Consulter</div>
+    </a>
+
+    <!-- Seurat -->
+    <a href="Seurat.html" class="card">
+      <div class="painter-av">S</div>
+      <div>
+        <div class="painter-name">Georges Seurat</div>
+        <div class="painter-theme">Micro-Habitudes</div>
+      </div>
+      <p class="painter-desc">Maîtrisez la science des petits gestes quotidiens pour une santé atomique.</p>
+      <div class="btn">Consulter</div>
+    </a>
+
+    <!-- Caillebotte -->
+    <a href="Caillebotte.html" class="card">
+      <div class="painter-av">G</div>
+      <div>
+        <div class="painter-name">Gustave Caillebotte</div>
+        <div class="painter-theme">Perspective & Force</div>
+      </div>
+      <p class="painter-desc">Affrontez la modernité avec une force physique et une perspective claires.</p>
+      <div class="btn">Consulter</div>
+    </a>
+
+    <!-- Gauguin -->
+    <a href="Gauguin.html" class="card">
+      <div class="painter-av">P</div>
+      <div>
+        <div class="painter-name">Paul Gauguin</div>
+        <div class="painter-theme">Vitalité & Évasion</div>
+      </div>
+      <p class="painter-desc">Retrouvez votre nature sauvage et évadez-vous mentalement du stress.</p>
+      <div class="btn">Consulter</div>
+    </a>
+
+    <!-- Manet -->
+    <a href="Manet.html" class="card">
+      <div class="painter-av">E</div>
+      <div>
+        <div class="painter-name">Édouard Manet</div>
+        <div class="painter-theme">Élégance & Clarté</div>
+      </div>
+      <p class="painter-desc">Abordez votre santé avec franchise, élégance et une clarté d'esprit absolue.</p>
+      <div class="btn">Consulter</div>
+    </a>
+
+    <!-- Bazille -->
+    <a href="Bazille.html" class="card">
+      <div class="painter-av">F</div>
+      <div>
+        <div class="painter-name">Frédéric Bazille</div>
+        <div class="painter-theme">Jeunesse & Potentiel</div>
+      </div>
+      <p class="painter-desc">Cultivez votre potentiel physique dans la lumière et la rigueur du jardin.</p>
+      <div class="btn">Consulter</div>
+    </a>
+
+    <!-- Whistler -->
+    <a href="Whistler.html" class="card">
+      <div class="painter-av">W</div>
+      <div>
+        <div class="painter-name">James Whistler</div>
+        <div class="painter-theme">Harmonie & Paix</div>
+      </div>
+      <p class="painter-desc">Plongez dans le calme nocturne et harmonisez vos tons intérieurs.</p>
+      <div class="btn">Consulter</div>
+    </a>
+  </div>
+</div>
+
+</body>
+</html>

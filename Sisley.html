@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sisley — Votre compagnon Biohacking</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --navy:#2C3E50;--teal:#7FB3D5;--teal2:#D4E6F1;--teal3:#EAF2F8;
+    --slate:#5499C7;--light:#F4F6F7;--bord:#A9CCE3;--white:#fff;
+    --amber:#F39C12;--red:#C0392B;--green:#27AE60;
+  }
+  html,body{height:100%;font-family:'Segoe UI',system-ui,sans-serif;background:var(--light);color:var(--navy)}
+
+  /* ── Layout ── */
+  .page{display:flex;flex-direction:column;min-height:100vh;max-width:680px;margin:0 auto;padding:0}
+
+  /* ── Header ── */
+  .header{background:var(--navy);padding:1rem 1.25rem;display:flex;align-items:center;gap:.75rem;flex-shrink:0}
+  .header-info{flex:1}
+  .back-btn{text-decoration:none;color:#fff;font-size:12px;border:1px solid rgba(255,255,255,0.3);padding:4px 10px;border-radius:20px;opacity:0.8;transition:all 0.2s}
+  .back-btn:hover{background:rgba(255,255,255,0.1);opacity:1}
+  .avatar{width:40px;height:40px;border-radius:50%;background:var(--teal2);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;color:var(--navy);flex-shrink:0}
+  .header-name{font-weight:700;font-size:15px;color:#fff}
+  .header-sub{font-size:12px;color:var(--teal2);margin-top:1px}
+  .status-dot{width:8px;height:8px;border-radius:50%;background:#4ade80;display:inline-block;margin-right:4px}
+
+  /* ── Chat area ── */
+  .chat{flex:1;overflow-y:auto;padding:1.25rem 1rem;display:flex;flex-direction:column;gap:.75rem;background:var(--light)}
+
+  /* ── Bubbles ── */
+  .bubble-wrap{display:flex;gap:.5rem;align-items:flex-end}
+  .bubble-wrap.user{flex-direction:row-reverse}
+  .bubble-av{width:30px;height:30px;border-radius:50%;background:var(--teal2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--navy);flex-shrink:0}
+  .bubble{max-width:82%;padding:.65rem .9rem;border-radius:16px;font-size:14.5px;line-height:1.6}
+  .bubble.painter{background:var(--white);border:0.5px solid var(--bord);border-bottom-left-radius:4px;color:var(--navy)}
+  .bubble.user{background:var(--navy);color:#fff;border-bottom-right-radius:4px}
+
+  /* ── Options ── */
+  .options{display:flex;flex-direction:column;gap:.45rem;padding:0 .5rem}
+  .opt-btn{background:var(--white);border:1px solid var(--bord);border-radius:12px;padding:.6rem 1rem;font-size:14px;color:var(--navy);cursor:pointer;text-align:left;transition:all .15s;line-height:1.4}
+  .opt-btn:hover{border-color:var(--amber);background:var(--teal3);color:var(--amber)}
+
+  /* ── Typing indicator ── */
+  .typing{display:flex;gap:4px;align-items:center;padding:.5rem .75rem;background:var(--white);border:0.5px solid var(--bord);border-radius:16px;border-bottom-left-radius:4px;width:fit-content}
+  .typing span{width:7px;height:7px;border-radius:50%;background:var(--bord);animation:blink 1.2s infinite}
+  .typing span:nth-child(2){animation-delay:.2s}
+  .typing span:nth-child(3){animation-delay:.4s}
+  @keyframes blink{0%,60%,100%{opacity:.3}30%{opacity:1}}
+
+  /* ── Score card ── */
+  .score-card{background:var(--white);border:1px solid var(--bord);border-radius:16px;padding:1.25rem;margin:.25rem 0}
+  .score-ring-wrap{display:flex;justify-content:center;margin-bottom:.75rem;position:relative}
+  .score-num{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:28px;font-weight:700;color:var(--navy)}
+  .score-title{font-size:16px;font-weight:700;text-align:center;margin-bottom:.4rem;color:var(--navy)}
+  .dims-grid{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin-top:.5rem}
+  .dim-item{background:var(--light);border-radius:8px;padding:.5rem .65rem}
+  .dim-name{font-size:11px;color:var(--slate);margin-bottom:3px;font-weight:600;text-transform:uppercase}
+  .dim-bar{height:4px;background:var(--bord);border-radius:2px;overflow:hidden}
+  .dim-fill{height:100%;border-radius:2px}
+  .dim-score{font-size:12px;font-weight:700}
+
+  /* ── Email form ── */
+  .email-card{background:var(--teal3);border:1px solid var(--amber);border-radius:16px;padding:1rem 1.1rem}
+  .email-row{display:flex;gap:.4rem}
+  .email-row input{flex:1;padding:.55rem .8rem;border:1px solid var(--amber);border-radius:8px;font-size:13px;outline:none}
+  .email-row button{padding:.55rem 1rem;background:var(--amber);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer}
+
+  /* ── Scroll anchor ── */
+  #bottom{height:1px}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="avatar">S</div>
+    <div class="header-info">
+      <div class="header-name">Alfred Sisley</div>
+      <div class="header-sub"><span class="status-dot"></span>Stabilité & Paysage Vital</div>
+    </div>
+    <a href="index.html" class="back-btn">Galerie</a>
+  </div>
+
+  <!-- Chat -->
+  <div class="chat" id="chat">
+    <div id="bottom"></div>
+  </div>
+
+</div>
+
+<script>
+const QUESTIONS = [
+  {
+    dim:'Ancrage Territorial',
+    q:'Avez-vous un lieu régulier en pleine nature où vous vous sentez pleinement ancré ?',
+    opts:[
+      {t:'Oui, je m\'y ressource quotidiennement',s:3},
+      {t:'Quelques fois par semaine dans un parc ou jardin',s:2},
+      {t:'Rarement, je reste surtout en intérieur',s:1},
+      {t:'Aucun contact avec la terre ou l\'eau',s:0},
+    ]
+  },
+  {
+    dim:'Sérénité Environnementale',
+    q:'Votre environnement immédiat est-il paisible et dépourvu de pollution sonore ?',
+    opts:[
+      {t:'Calme absolu, un vrai refuge',s:3},
+      {t:'Bruit urbain modéré, assez calme',s:2},
+      {t:'Environnement bruyant et agité',s:1},
+      {t:'Stress sonore permanent',s:0},
+    ]
+  },
+  {
+    dim:'Stabilité des Éléments',
+    q:'Maintenez-vous une température et une humidité saines dans votre lieu de vie ?',
+    opts:[
+      {t:'Oui, air pur et température optimale',s:3},
+      {t:'Globalement sain avec aération régulière',s:2},
+      {t:'Air sec ou atmosphère confinée',s:1},
+      {t:'Environnement mal aéré et inconfortable',s:0},
+    ]
+  },
+  {
+    dim:'Contemplation Active',
+    q:'Prenez-vous le temps de contempler le passage de la lumière sur le paysage ?',
+    opts:[
+      {t:'Chaque jour, c\'est un rituel essentiel',s:3},
+      {t:'Souvent, j\'apprécie la vue',s:2},
+      {t:'Je ne regarde presque jamais dehors',s:1},
+      {t:'Vitre fermée ou vue obstruée en permanence',s:0},
+    ]
+  }
+];
+
+const BRIDGES = [
+  "La terre est le socle de votre stabilité.",
+  "Le silence est le langage de la santé.",
+  "L'air pur est le premier des nutriments.",
+  "La lumière dessine les contours de votre bien-être.",
+];
+
+const INTROS = [
+  "Bonjour. Je suis Alfred Sisley.",
+  "Je peins l'eau, le ciel et la terre avec une fidélité inlassable. Votre santé a besoin de racines solides et d'un horizon clair.",
+  "Évaluons ensemble l'ancrage et la stabilité de votre paysage de vie.",
+  "Prêt à cultiver votre ancrage ?",
+];
+
+const PROFILES = [
+  {min:75,title:'L\'Inondation à Port-Marly',color:'#27AE60',
+   msg:'Votre vitalité est ancrée et stable. Vous vivez en harmonie avec votre environnement. Voici votre carnet de paysage.'},
+  {min:50,title:'Chemin de Sèvres',color:'#F39C12',
+   msg:'La terre est bonne, mais le ciel est parfois couvert. Ajustons votre ancrage pour plus de sérénité.'},
+  {min:0,title:'Paysage sous la Brume',color:'#C0392B',
+   msg:'Votre ancrage vacille et l\'air vous manque. Il est temps de retrouver la clarté et la solidité du sol.'},
+];
+
+let answers = [];
+let chatEl = document.getElementById('chat');
+let bottomEl = document.getElementById('bottom');
+
+function scrollBottom(){
+  setTimeout(()=>bottomEl.scrollIntoView({behavior:'smooth'}),80);
+}
+
+function addBubble(text, who, delay=0){
+  return new Promise(resolve=>{
+    setTimeout(()=>{
+      const wrap = document.createElement('div');
+      wrap.className = 'bubble-wrap ' + who;
+      if(who==='painter'){
+        wrap.innerHTML = '<div class="bubble-av">S</div><div class="bubble painter">' + text + '</div>';
+      } else {
+        wrap.innerHTML = '<div class="bubble user">' + text + '</div>';
+      }
+      chatEl.insertBefore(wrap, bottomEl);
+      scrollBottom();
+      resolve();
+    }, delay);
+  });
+}
+
+function addTyping(){
+  const wrap = document.createElement('div');
+  wrap.className = 'bubble-wrap painter';
+  wrap.id = 'typing-indicator';
+  wrap.innerHTML = '<div class="bubble-av">S</div><div class="typing"><span></span><span></span><span></span></div>';
+  chatEl.insertBefore(wrap, bottomEl);
+  scrollBottom();
+}
+
+function removeTyping(){
+  const t = document.getElementById('typing-indicator');
+  if(t) t.remove();
+}
+
+async function painterSay(text, delay=900){
+  addTyping();
+  await new Promise(r=>setTimeout(r,delay));
+  removeTyping();
+  await addBubble(text,'painter');
+}
+
+function addOptions(opts, callback){
+  const wrap = document.createElement('div');
+  wrap.className = 'options';
+  opts.forEach((o,i)=>{
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.textContent = o.t;
+    btn.onclick = ()=>{
+      wrap.remove();
+      addBubble(o.t,'user');
+      callback(i,o);
+    };
+    wrap.appendChild(btn);
+  });
+  chatEl.insertBefore(wrap, bottomEl);
+  scrollBottom();
+}
+
+async function askQuestion(idx){
+  const q = QUESTIONS[idx];
+  await painterSay(q.q, 1000);
+  setTimeout(()=>{
+    addOptions(q.opts, async(i,o)=>{
+      answers.push({dim:q.dim, score:o.s, label:o.t});
+      if(idx < QUESTIONS.length - 1){
+        await painterSay(BRIDGES[idx] || 'Je note.', 700);
+        setTimeout(()=>askQuestion(idx+1), 400);
+      } else {
+        setTimeout(()=>showResult(), 700);
+      }
+    });
+  }, 400);
+}
+
+async function showResult(){
+  const total = answers.reduce((s,a)=>s+a.score,0);
+  const max = QUESTIONS.length * 3;
+  const pct = Math.round((total/max)*100);
+
+  await painterSay('J\'harmonise les éléments de votre paysage vital...', 1200);
+
+  const profile = PROFILES.find(p=>pct>=p.min) || PROFILES[PROFILES.length-1];
+  const ringColor = profile.color;
+  const circumference = 2*Math.PI*48;
+  const offset = circumference - (circumference*(pct/100));
+
+  await new Promise(r=>setTimeout(r,1400));
+  const card = document.createElement('div');
+  card.className = 'bubble-wrap painter';
+
+  const dimHTML = answers.map(a=>{
+    const dp = Math.round((a.score/3)*100);
+    const col = dp>=67?'#27AE60':dp>=34?'#F39C12':'#C0392B';
+    return `<div class="dim-item">
+      <div class="dim-name">${a.dim}</div>
+      <div class="dim-bar"><div class="dim-fill" style="width:${dp}%;background:${col}"></div></div>
+      <div class="dim-score" style="color:${col}">${dp}/100</div>
+    </div>`;
+  }).join('');
+
+  card.innerHTML = `<div class="bubble-av">S</div>
+    <div class="score-card">
+      <div class="score-ring-wrap">
+        <svg width="110" height="110" viewBox="0 0 110 110">
+          <circle cx="55" cy="55" r="48" fill="none" stroke="#E2E8F0" stroke-width="7"/>
+          <circle cx="55" cy="55" r="48" fill="none" stroke="${ringColor}" stroke-width="7"
+            stroke-dasharray="${circumference.toFixed(1)}" stroke-dashoffset="${circumference.toFixed(1)}"
+            stroke-linecap="round" transform="rotate(-90 55 55)"
+            id="score-arc"/>
+        </svg>
+        <div class="score-num" style="color:var(--navy)">${pct}</div>
+      </div>
+      <div class="score-title">${profile.title}</div>
+      <div class="dims-grid">${dimHTML}</div>
+    </div>`;
+  chatEl.insertBefore(card, bottomEl);
+  scrollBottom();
+
+  setTimeout(()=>{
+    const arc = document.getElementById('score-arc');
+    if(arc) arc.style.cssText += ';transition:stroke-dashoffset 1.2s ease;stroke-dashoffset:'+offset.toFixed(1);
+  },100);
+
+  await painterSay(profile.msg, 2000);
+  await painterSay('Pour recevoir votre rapport de stabilité vitale, indiquez-moi votre email.', 1200);
+
+  const emailCard = document.createElement('div');
+  emailCard.className = 'bubble-wrap painter';
+  emailCard.innerHTML = `<div class="bubble-av">S</div>
+    <div class="email-card">
+      <div class="email-row">
+        <input type="email" id="email-field" placeholder="votre@email.com">
+        <button onclick="alert('Rapport envoyé !')">Valider</button>
+      </div>
+    </div>`;
+  chatEl.insertBefore(emailCard, bottomEl);
+  scrollBottom();
+}
+
+async function init(){
+  for(let i=0;i<INTROS.length;i++){
+    await painterSay(INTROS[i], 800);
+  }
+  addOptions([{t:'Analyser mon ancrage'}], ()=>askQuestion(0));
+}
+
+init();
+</script>
+</body>
+</html>

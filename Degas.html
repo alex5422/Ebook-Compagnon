@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Degas — Votre compagnon Biohacking</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --navy:#2D3436;--teal:#74B9FF;--teal2:#FAB1A0;--teal3:#FDF2F0;
+    --slate:#636E72;--light:#FAF9F6;--bord:#E17055;--white:#fff;
+    --amber:#D63031;--red:#B83227;--green:#218F76;
+  }
+  html,body{height:100%;font-family:'Segoe UI',system-ui,sans-serif;background:var(--light);color:var(--navy)}
+
+  /* ── Layout ── */
+  .page{display:flex;flex-direction:column;min-height:100vh;max-width:680px;margin:0 auto;padding:0}
+
+  /* ── Header ── */
+  .header{background:var(--navy);padding:1rem 1.25rem;display:flex;align-items:center;gap:.75rem;flex-shrink:0}
+  .header-info{flex:1}
+  .back-btn{text-decoration:none;color:#fff;font-size:12px;border:1px solid rgba(255,255,255,0.3);padding:4px 10px;border-radius:20px;opacity:0.8;transition:all 0.2s}
+  .back-btn:hover{background:rgba(255,255,255,0.1);opacity:1}
+  .avatar{width:40px;height:40px;border-radius:50%;background:var(--teal2);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;color:var(--navy);flex-shrink:0}
+  .header-name{font-weight:700;font-size:15px;color:#fff}
+  .header-sub{font-size:12px;color:var(--teal2);margin-top:1px}
+  .status-dot{width:8px;height:8px;border-radius:50%;background:#4ade80;display:inline-block;margin-right:4px}
+
+  /* ── Chat area ── */
+  .chat{flex:1;overflow-y:auto;padding:1.25rem 1rem;display:flex;flex-direction:column;gap:.75rem;background:var(--light)}
+
+  /* ── Bubbles ── */
+  .bubble-wrap{display:flex;gap:.5rem;align-items:flex-end}
+  .bubble-wrap.user{flex-direction:row-reverse}
+  .bubble-av{width:30px;height:30px;border-radius:50%;background:var(--teal2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--navy);flex-shrink:0}
+  .bubble{max-width:82%;padding:.65rem .9rem;border-radius:16px;font-size:14.5px;line-height:1.6}
+  .bubble.painter{background:var(--white);border:0.5px solid var(--bord);border-bottom-left-radius:4px;color:var(--navy)}
+  .bubble.user{background:var(--navy);color:#fff;border-bottom-right-radius:4px}
+
+  /* ── Options ── */
+  .options{display:flex;flex-direction:column;gap:.45rem;padding:0 .5rem}
+  .opt-btn{background:var(--white);border:1px solid var(--bord);border-radius:12px;padding:.6rem 1rem;font-size:14px;color:var(--navy);cursor:pointer;text-align:left;transition:all .15s;line-height:1.4}
+  .opt-btn:hover{border-color:var(--amber);background:var(--teal3);color:var(--amber)}
+
+  /* ── Typing indicator ── */
+  .typing{display:flex;gap:4px;align-items:center;padding:.5rem .75rem;background:var(--white);border:0.5px solid var(--bord);border-radius:16px;border-bottom-left-radius:4px;width:fit-content}
+  .typing span{width:7px;height:7px;border-radius:50%;background:var(--bord);animation:blink 1.2s infinite}
+  .typing span:nth-child(2){animation-delay:.2s}
+  .typing span:nth-child(3){animation-delay:.4s}
+  @keyframes blink{0%,60%,100%{opacity:.3}30%{opacity:1}}
+
+  /* ── Score card ── */
+  .score-card{background:var(--white);border:1px solid var(--bord);border-radius:16px;padding:1.25rem;margin:.25rem 0}
+  .score-ring-wrap{display:flex;justify-content:center;margin-bottom:.75rem;position:relative}
+  .score-num{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:28px;font-weight:700;color:var(--navy)}
+  .score-title{font-size:16px;font-weight:700;text-align:center;margin-bottom:.4rem;color:var(--navy)}
+  .dims-grid{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin-top:.5rem}
+  .dim-item{background:var(--light);border-radius:8px;padding:.5rem .65rem}
+  .dim-name{font-size:11px;color:var(--slate);margin-bottom:3px;font-weight:600;text-transform:uppercase}
+  .dim-bar{height:4px;background:var(--bord);border-radius:2px;overflow:hidden}
+  .dim-fill{height:100%;border-radius:2px}
+  .dim-score{font-size:12px;font-weight:700}
+
+  /* ── Email form ── */
+  .email-card{background:var(--teal3);border:1px solid var(--amber);border-radius:16px;padding:1rem 1.1rem}
+  .email-row{display:flex;gap:.4rem}
+  .email-row input{flex:1;padding:.55rem .8rem;border:1px solid var(--amber);border-radius:8px;font-size:13px;outline:none}
+  .email-row button{padding:.55rem 1rem;background:var(--amber);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer}
+
+  /* ── Scroll anchor ── */
+  #bottom{height:1px}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="avatar">D</div>
+    <div class="header-info">
+      <div class="header-name">Edgar Degas</div>
+      <div class="header-sub"><span class="status-dot"></span>Mouvement & Élégance du Corps</div>
+    </div>
+    <a href="index.html" class="back-btn">Galerie</a>
+  </div>
+
+  <!-- Chat -->
+  <div class="chat" id="chat">
+    <div id="bottom"></div>
+  </div>
+
+</div>
+
+<script>
+const QUESTIONS = [
+  {
+    dim:'Fluidité Quotidienne',
+    q:'Comment se déplace votre corps tout au long de la journée ?',
+    opts:[
+      {t:'Mouvement constant, je ne reste pas assis',s:3},
+      {t:'Quelques pas réguliers, alternance assis/debout',s:2},
+      {t:'Majoritairement assis, peu de marche',s:1},
+      {t:'Sédentarité totale, mon corps est statique',s:0},
+    ]
+  },
+  {
+    dim:'Équilibre de Danseur',
+    q:'Tenez-vous facilement sur une jambe pendant 30 secondes ?',
+    opts:[
+      {t:'Équilibre parfait, stable comme une statue',s:3},
+      {t:'Stable, mais demande de la concentration',s:2},
+      {t:'Vacillant, je dois me rattraper',s:1},
+      {t:'Impossible, mon équilibre est fragile',s:0},
+    ]
+  },
+  {
+    dim:'Culture CID UNESCO',
+    q:'Connaissez-vous les bienfaits de la danse pour la santé selon le portail du CID Unesco ?',
+    opts:[
+      {t:'Oui, je pratique la danse régulièrement',s:3},
+      {t:'Je m\'intéresse au mouvement et à la danse',s:2},
+      {t:'J\'en ai entendu parler vaguement',s:1},
+      {t:'Pas du tout, je découvre cette recommandation',s:0},
+    ]
+  },
+  {
+    dim:'Récupération & Souplesse',
+    q:'Prenez-vous le temps d\'étirer votre silhouette après l\'effort ?',
+    opts:[
+      {t:'Étirements quotidiens et profonds',s:3},
+      {t:'Quelques mouvements de souplesse réguliers',s:2},
+      {t:'Rarement, je me sens souvent raide',s:1},
+      {t:'Jamais, mon corps est tendu',s:0},
+    ]
+  }
+];
+
+const BRIDGES = [
+  "Le mouvement est la poésie du corps.",
+  "La stabilité est la base de toute grâce.",
+  "La danse est un remède universel pour l'esprit.",
+  "Chaque muscle mérite sa part de liberté.",
+];
+
+const INTROS = [
+  "Bonjour. Je suis Edgar Degas.",
+  "Je passe mes journées à observer les danseuses à l'Opéra. Leur discipline et leur grâce sont une leçon de vie.",
+  "Analysons ensemble la posture et le mouvement de votre propre 'corps de ballet'.",
+  "Prêt à entrer en scène pour votre santé ?",
+];
+
+const PROFILES = [
+  {min:75,title:'Étoile de l\'Opéra',color:'#218F76',
+   msg:'Votre corps bouge avec une fluidité et une force admirables. Vous suivez les meilleures pratiques de mouvement. Voici votre carnet de chorégraphie santé.'},
+  {min:50,title:'Petit Rat en Formation',color:'#E17055',
+   msg:'La base est là, mais la posture demande encore du travail. Intégrons plus de danse et de mouvement dans votre quotidien.'},
+  {min:0,title:'Statue de Bronze',color:'#B83227',
+   msg:'Votre corps semble figé dans le temps. Il est urgent de retrouver la mobilité et de suivre les conseils du CID Unesco pour vous libérer.'},
+];
+
+let answers = [];
+let chatEl = document.getElementById('chat');
+let bottomEl = document.getElementById('bottom');
+
+function scrollBottom(){
+  setTimeout(()=>bottomEl.scrollIntoView({behavior:'smooth'}),80);
+}
+
+function addBubble(text, who, delay=0){
+  return new Promise(resolve=>{
+    setTimeout(()=>{
+      const wrap = document.createElement('div');
+      wrap.className = 'bubble-wrap ' + who;
+      if(who==='painter'){
+        wrap.innerHTML = '<div class="bubble-av">D</div><div class="bubble painter">' + text + '</div>';
+      } else {
+        wrap.innerHTML = '<div class="bubble user">' + text + '</div>';
+      }
+      chatEl.insertBefore(wrap, bottomEl);
+      scrollBottom();
+      resolve();
+    }, delay);
+  });
+}
+
+function addTyping(){
+  const wrap = document.createElement('div');
+  wrap.className = 'bubble-wrap painter';
+  wrap.id = 'typing-indicator';
+  wrap.innerHTML = '<div class="bubble-av">D</div><div class="typing"><span></span><span></span><span></span></div>';
+  chatEl.insertBefore(wrap, bottomEl);
+  scrollBottom();
+}
+
+function removeTyping(){
+  const t = document.getElementById('typing-indicator');
+  if(t) t.remove();
+}
+
+async function painterSay(text, delay=900){
+  addTyping();
+  await new Promise(r=>setTimeout(r,delay));
+  removeTyping();
+  await addBubble(text,'painter');
+}
+
+function addOptions(opts, callback){
+  const wrap = document.createElement('div');
+  wrap.className = 'options';
+  opts.forEach((o,i)=>{
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.textContent = o.t;
+    btn.onclick = ()=>{
+      wrap.remove();
+      addBubble(o.t,'user');
+      callback(i,o);
+    };
+    wrap.appendChild(btn);
+  });
+  chatEl.insertBefore(wrap, bottomEl);
+  scrollBottom();
+}
+
+async function askQuestion(idx){
+  const q = QUESTIONS[idx];
+  await painterSay(q.q, 1000);
+  setTimeout(()=>{
+    addOptions(q.opts, async(i,o)=>{
+      answers.push({dim:q.dim, score:o.s, label:o.t});
+      if(idx < QUESTIONS.length - 1){
+        await painterSay(BRIDGES[idx] || 'Je note.', 700);
+        setTimeout(()=>askQuestion(idx+1), 400);
+      } else {
+        setTimeout(()=>showResult(), 700);
+      }
+    });
+  }, 400);
+}
+
+async function showResult(){
+  const total = answers.reduce((s,a)=>s+a.score,0);
+  const max = QUESTIONS.length * 3;
+  const pct = Math.round((total/max)*100);
+
+  await painterSay('J\'observe votre posture finale sur cette toile...', 1200);
+
+  const profile = PROFILES.find(p=>pct>=p.min) || PROFILES[PROFILES.length-1];
+  const ringColor = profile.color;
+  const circumference = 2*Math.PI*48;
+  const offset = circumference - (circumference*(pct/100));
+
+  await new Promise(r=>setTimeout(r,1400));
+  const card = document.createElement('div');
+  card.className = 'bubble-wrap painter';
+
+  const dimHTML = answers.map(a=>{
+    const dp = Math.round((a.score/3)*100);
+    const col = dp>=67?'#218F76':dp>=34?'#E17055':'#B83227';
+    return `<div class="dim-item">
+      <div class="dim-name">${a.dim}</div>
+      <div class="dim-bar"><div class="dim-fill" style="width:${dp}%;background:${col}"></div></div>
+      <div class="dim-score" style="color:${col}">${dp}/100</div>
+    </div>`;
+  }).join('');
+
+  card.innerHTML = `<div class="bubble-av">D</div>
+    <div class="score-card">
+      <div class="score-ring-wrap">
+        <svg width="110" height="110" viewBox="0 0 110 110">
+          <circle cx="55" cy="55" r="48" fill="none" stroke="#E2E8F0" stroke-width="7"/>
+          <circle cx="55" cy="55" r="48" fill="none" stroke="${ringColor}" stroke-width="7"
+            stroke-dasharray="${circumference.toFixed(1)}" stroke-dashoffset="${circumference.toFixed(1)}"
+            stroke-linecap="round" transform="rotate(-90 55 55)"
+            id="score-arc"/>
+        </svg>
+        <div class="score-num" style="color:var(--navy)">${pct}</div>
+      </div>
+      <div class="score-title">${profile.title}</div>
+      <div class="dims-grid">${dimHTML}</div>
+    </div>`;
+  chatEl.insertBefore(card, bottomEl);
+  scrollBottom();
+
+  setTimeout(()=>{
+    const arc = document.getElementById('score-arc');
+    if(arc) arc.style.cssText += ';transition:stroke-dashoffset 1.2s ease;stroke-dashoffset:'+offset.toFixed(1);
+  },100);
+
+  await painterSay(profile.msg, 2000);
+  await painterSay('Pour recevoir votre rapport de mouvement personnalisé, indiquez-moi votre email.', 1200);
+
+  const emailCard = document.createElement('div');
+  emailCard.className = 'bubble-wrap painter';
+  emailCard.innerHTML = `<div class="bubble-av">D</div>
+    <div class="email-card">
+      <div class="email-row">
+        <input type="email" id="email-field" placeholder="votre@email.com">
+        <button onclick="alert('Rapport envoyé !')">Valider</button>
+      </div>
+    </div>`;
+  chatEl.insertBefore(emailCard, bottomEl);
+  scrollBottom();
+}
+
+async function init(){
+  for(let i=0;i<INTROS.length;i++){
+    await painterSay(INTROS[i], 800);
+  }
+  addOptions([{t:'Analyser mon mouvement'}], ()=>askQuestion(0));
+}
+
+init();
+</script>
+</body>
+</html>
